@@ -89,6 +89,9 @@
           el("h3", { text: c.term }),
           el("p", { text: c.text }),
           el("p", { className: "where" }, [el("span", { className: "where-label", text: "Find it: " }), c.where]),
+          c.anchor ? el("button", { type: "button", className: "btn btn-small", text: "Show in code", on: { click: function () {
+            document.dispatchEvent(new CustomEvent("sls:highlight", { detail: c.anchor }));
+          } } }) : null,
         ]);
       })),
     ]);
