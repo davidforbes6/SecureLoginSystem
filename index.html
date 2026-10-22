@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Login System: Live Versions</title>
+  <meta name="description" content="Try each version of a secure Python login system (v1 to vFINAL) in your browser.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --card: #ffffff;
+      --text: #1f2328;
+      --muted: #59636e;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --terminal-bg: #0d1117;
+      --terminal-text: #e6edf3;
+      --terminal-muted: #8b949e;
+      --terminal-prompt: #7ee787;
+      --warn: #9a6700;
+      --warn-bg: #fff8c5;
+      --radius: 10px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0d1117;
+        --card: #161b22;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #30363d;
+        --accent: #58a6ff;
+        --warn: #d29922;
+        --warn-bg: #2d2611;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --warn: #d29922;
+      --warn-bg: #2d2611;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+    h1 { font-size: 1.6rem; margin: 0 0 4px; }
+    .subtitle { color: var(--muted); margin: 0 0 20px; }
+    h2 { font-size: 1.1rem; margin: 0 0 8px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; }
+
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .tab {
+      appearance: none; border: 1px solid var(--border); background: var(--card); color: var(--text);
+      padding: 8px 14px; border-radius: 999px; cursor: pointer; font: inherit;
+    }
+    .tab[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); font-weight: 600; }
+    .tab:focus-visible, button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 16px; align-items: start; }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .card + .card { margin-top: 16px; }
+    .info p { margin: 0 0 10px; }
+    .info ul { margin: 0 0 10px; padding-left: 20px; }
+    .info li { margin-bottom: 4px; }
+    .muted { color: var(--muted); }
+    .gap-note { background: var(--warn-bg); color: var(--text); border-left: 3px solid var(--warn); padding: 8px 10px; border-radius: 6px; font-size: 0.95em; }
+    details summary { cursor: pointer; font-weight: 600; }
+    details > div { margin-top: 8px; }
+
+    .terminal { background: var(--terminal-bg); color: var(--terminal-text); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    .terminal-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 12px; background: #21262d; color: var(--terminal-muted); font-size: 0.85em; }
+    .terminal-bar button {
+      background: transparent; color: var(--terminal-text); border: 1px solid #444c56; border-radius: 6px;
+      padding: 4px 10px; cursor: pointer; font: inherit; font-size: 0.9em;
+    }
+    .output {
+      height: 360px; overflow-y: auto; padding: 12px 14px; white-space: pre-wrap; word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.45;
+    }
+    .output .line { min-height: 1.45em; }
+    .output .echo { color: var(--terminal-prompt); }
+    .output .system { color: var(--terminal-muted); font-style: italic; }
+    .output .error { color: #ff7b72; }
+    .prompt-row {
+      display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid #30363d;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px;
+    }
+    .prompt-label { color: var(--terminal-prompt); white-space: pre; flex: 0 0 auto; }
+    .prompt-label.waiting { color: var(--terminal-muted); }
+    .prompt-row input {
+      flex: 1 1 auto; min-width: 0; background: transparent; border: 0; color: var(--terminal-text);
+      font: inherit; padding: 6px 0;
+    }
+    .prompt-row input:disabled { opacity: 0.5; }
+    .prompt-row input:focus-visible { outline: none; }
+
+    .log-list {
+      background: var(--terminal-bg); color: var(--terminal-text); border-radius: 8px; padding: 10px 12px;
+      height: 200px; overflow-y: auto; white-space: pre-wrap; word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; margin: 0;
+    }
+    .log-list .empty { color: var(--terminal-muted); }
+    .row-buttons { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: var(--card); color: var(--text);
+      padding: 6px 12px; border-radius: 6px; cursor: pointer; font: inherit; font-size: 0.92em;
+    }
+    .hint-table { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+    .hint-table td { padding: 4px 6px 4px 0; vertical-align: top; }
+    .hint-table td:first-child { color: var(--muted); white-space: nowrap; padding-right: 10px; }
+
+    footer { margin-top: 28px; color: var(--muted); font-size: 0.9em; }
+    footer a { color: var(--accent); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Secure Login System</h1>
+  <p class="subtitle">Six versions of a Python login system, each running live in your browser. Pick a version, then type at the prompt.</p>
+
+  <div class="tabs" role="tablist" aria-label="Versions" id="tabs"></div>
+
+  <div class="layout">
+    <aside>
+      <section class="card info" id="info" aria-live="polite"></section>
+
+      <section class="card" id="log-card" hidden>
+        <h2>security_audit.log</h2>
+        <p class="muted" style="margin:0 0 8px;font-size:0.92em;">Each event is written with a timestamp. Passwords are never written. The log is kept until you reload the page.</p>
+        <pre class="log-list" id="log-list" aria-live="polite"></pre>
+        <div class="row-buttons"><button class="btn" id="clear-log" type="button">Clear log</button></div>
+      </section>
+    </aside>
+
+    <section aria-label="Terminal">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span id="terminal-title">terminal</span>
+          <button type="button" id="restart">Restart</button>
+        </div>
+        <div class="output" id="output" role="log" aria-live="polite" aria-label="Program output" tabindex="0"></div>
+        <form class="prompt-row" id="prompt-form" autocomplete="off">
+          <span class="prompt-label waiting" id="prompt-label">...</span>
+          <label class="sr-only" for="prompt-input" id="prompt-sr">Input</label>
+          <input id="prompt-input" type="text" disabled spellcheck="false" autocapitalize="off">
+        </form>
+      </div>
+      <p class="muted" style="font-size:0.9em;margin-top:10px;">
+        Press Enter to send each line. Only v5 hides the password (<code>getpass</code>). The other versions show it as typed, as their Python code does.
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    <p>The page runs a browser version of each Python program in <code>src/</code>. The messages, rules and order of steps match the Python files, and the output was checked against them. The Python files are the source of truth.</p>
+    <p>Source code and tests: <a href="https://github.com/davidforbes6/SecureLoginSystem">github.com/davidforbes6/SecureLoginSystem</a>. Process diary: <a href="https://github.com/davidforbes6/SecureLoginSystem/blob/main/docs/PROCESS_DIARY.md">docs/PROCESS_DIARY.md</a>.</p>
+  </footer>
+</main>
+
+<script src="assets/versions.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

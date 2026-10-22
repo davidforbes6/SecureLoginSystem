@@ -25,6 +25,20 @@ python src/login_v5_DavidForbes.py
 
 Simulated test accounts are listed in [`docs/PROCESS_DIARY.md`](docs/PROCESS_DIARY.md#7-how-to-reproduce-the-tests). They are for testing only.
 
+## Live demo (GitHub Pages)
+
+[`index.html`](index.html) lets you try every version in a browser: type at the prompt, switch versions with the tabs, and watch the audit log in vFINAL. It has no build step and no dependencies.
+
+To publish it:
+
+1. On GitHub, open **Settings → Pages**.
+2. Under **Build and deployment**, choose **Deploy from a branch**.
+3. Select the `main` branch and the `/ (root)` folder, then save.
+
+The site appears at `https://davidforbes6.github.io/SecureLoginSystem/` after a minute or two.
+
+The browser code (`assets/versions.js`) follows the Python files, and its output was checked against them. The Python files remain the source of truth.
+
 ## Running the tests
 
 ```bash
