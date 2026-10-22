@@ -214,6 +214,7 @@
     });
 
     renderInfo(version);
+    window.CodeView.load(version.file);
     els.logCard.hidden = !version.hasLog;
     renderLog();
     window.Lessons.renderLesson(version, {
@@ -244,6 +245,7 @@
 
   renderTabs();
   renderLog();
+  window.CodeView.init();
   window.Lessons.renderProgress(els.progress, window.Lessons.getDone());
   els.glossary.textContent = "";
   els.glossary.appendChild(window.Lessons.renderGlossary());
