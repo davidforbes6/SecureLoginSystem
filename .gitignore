@@ -1,0 +1,7 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Audit log written by login_vFINAL when it is run locally
+security_audit.log
+*.log
