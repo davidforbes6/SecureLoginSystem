@@ -2,7 +2,27 @@
 
 A login system in Python, built in six versions. Each version adds one more secure coding practice, from a basic prototype (v1) to a version with brute-force protection and secure logging (vFINAL).
 
-Built for the NSW HSC Software Engineering *Secure Architecture* project.
+This repository is built for the NSW HSC Software Engineering *Secure Architecture* project. It is also a **practice space for Git**: a real project with a real history, pull requests and a live website to explore.
+
+## Start here
+
+| If you want to… | Go to |
+|---|---|
+| Try each version in your browser, with theory, labs and quizzes | [The live site](https://davidforbes6.github.io/SecureLoginSystem/) |
+| Learn Git by doing it on this project | [`docs/GIT_LEARNING.md`](docs/GIT_LEARNING.md) |
+| Read the code | [`src/`](src/) (one file per version) |
+| See how the project was built, step by step | [`docs/PROCESS_DIARY.md`](docs/PROCESS_DIARY.md) |
+| Check the tests | [`tests/`](tests/) and [Running the tests](#running-the-tests) |
+
+**Students:** please make your own copy first (click **Fork**, top right) and practise there. See [`docs/GIT_LEARNING.md`](docs/GIT_LEARNING.md), Part 0.
+
+## History of this project
+
+| Pull request | What it added |
+|---|---|
+| [#1](https://github.com/davidforbes6/SecureLoginSystem/pull/1) | The six login versions, the unit tests, the process diary and the data dictionary |
+| [#2](https://github.com/davidforbes6/SecureLoginSystem/pull/2) | The live website, with theory, interactive labs and quizzes for each version |
+| This pull request | Git learning guide, updated descriptions and class-ready documentation |
 
 ## Versions
 
@@ -27,9 +47,11 @@ Simulated test accounts are listed in [`docs/PROCESS_DIARY.md`](docs/PROCESS_DIA
 
 ## Live demo (GitHub Pages)
 
-[`index.html`](index.html) lets you try every version in a browser: type at the prompt, switch versions with the tabs, and watch the audit log in vFINAL. It has no build step and no dependencies.
+[`index.html`](index.html) is a guided lesson for each version. You can run it in the browser, read the theory, try an interactive lab (for example a SHA-256 explorer or a brute-force calculator), and answer a short quiz. Progress is saved in your browser. It has no build step and no dependencies.
 
-To publish it:
+The live site is at **https://davidforbes6.github.io/SecureLoginSystem/**
+
+To publish your own copy (for example on your fork):
 
 1. On GitHub, open **Settings → Pages**.
 2. Under **Build and deployment**, choose **Deploy from a branch**.
@@ -49,16 +71,23 @@ The suite has 34 tests and takes about 30 seconds, because one test waits for th
 
 ## Documentation
 
+- [`docs/GIT_LEARNING.md`](docs/GIT_LEARNING.md): a hands-on Git guide using this project. Covers forks, branches, commits, pull requests, undoing mistakes and merge conflicts.
 - [`docs/PROCESS_DIARY.md`](docs/PROCESS_DIARY.md): process diary for each version, test cases with expected and actual results, security evaluation, and Trinket.io limitations.
 - [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md): every variable, constant and parameter, with its type and purpose.
 
 ## Repository layout
 
 ```
-src/      one file per version (the deliverables)
-tests/    unittest suite, with simulated data only
-docs/     process diary and data dictionary
+index.html    the live teaching site
+assets/       JavaScript for the site (terminal, labs, quizzes, content)
+src/          one file per version (the deliverables)
+tests/        unittest suite, with simulated data only
+docs/         Git guide, process diary and data dictionary
 ```
+
+## Safety note
+
+All passwords in this project are simulated, for teaching only. Never commit real passwords, keys or personal data to any repository.
 
 ## Notes
 
