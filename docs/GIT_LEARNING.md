@@ -142,6 +142,15 @@ git revert <commit-id>     # creates a NEW commit that reverses the old one
 
 `git revert` keeps the history honest, so it is the safe choice for shared branches. Try it on your fork with the commit from Part 3.
 
+**Reverting a merge commit** needs one extra option, because a merge has two parents. Git asks which parent's side to keep. `-m 1` means "keep the branch I merged into" (usually `main`):
+
+```bash
+git log --oneline --merges -1           # find the most recent merge commit
+git revert -m 1 <merge-commit-id>       # undo the merge, keeping main's side
+```
+
+Without `-m 1`, Git stops with `error: commit ... is a merge but no -m option was given.`
+
 **Dangerous, local only:** `git reset --hard` throws away uncommitted work and can delete commits from your branch. Never use it on a branch others have copied. Read the output of `git status` before using it.
 
 ---
