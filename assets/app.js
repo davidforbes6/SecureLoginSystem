@@ -5,68 +5,9 @@
 (function () {
   "use strict";
 
-  const REPO_SRC = "https://github.com/davidforbes6/SecureLoginSystem/blob/main/src/";
+  const REPO_SRC = window.LessonContent.REPO_SRC;
   const CANCELLED = { cancelled: true };
-
-  const VERSIONS = [
-    {
-      id: "v1", tab: "🔴 v1", program: "v1", file: "login_v1_DavidForbes.py",
-      title: "Basic prototype",
-      summary: "One if / else check of a single username and password. The program runs top to bottom and ends after one attempt.",
-      gaps: "The password is stored in plain text in the source file.",
-      hints: [["admin", "Password123"]],
-    },
-    {
-      id: "v2", tab: "🟠 v2", program: "v2", file: "login_v2_DavidForbes.py",
-      title: "Input validation and retry loop",
-      summary: "Blank input is rejected and re-prompted. Three attempts are allowed, counted with a while loop and a .format() message.",
-      gaps: "The password is still plain text, and restarting the program gives three new attempts.",
-      hints: [["admin", "Password123"], ["Try", "a blank username or password to see the validation"]],
-    },
-    {
-      id: "v3", tab: "🟡 v3", program: "v3", file: "login_v3_DavidForbes.py",
-      title: "Modular design",
-      summary: "The program is split into get_non_empty_input, validate_credentials and display_status, all called from main().",
-      gaps: "Modular structure makes the code easier to test, but adds no new security control.",
-      hints: [["admin", "Password123"]],
-    },
-    {
-      id: "v4", tab: "🟢 v4", program: "v4", file: "login_v4_DavidForbes.py",
-      title: "Sanitisation, dictionary and custom hash",
-      summary: "Usernames are cleaned to letters and digits only, users are held in a dictionary, and passwords are compared as a custom hash. Passwords are not stored in plain text.",
-      gaps: "The custom hash is weak. \"aB\" and \"b!\" give the same value, and it is fast to try guesses against.",
-      hints: [
-        ["alice", "AliceSecure#1"],
-        ["bob", "BobPassword!9"],
-        ["admin", "SuperAdmin999"],
-        ["Try", "A-l-i-c-e: the symbols are removed before the lookup"],
-      ],
-    },
-    {
-      id: "v5", tab: "🔵 v5", program: "v5", file: "login_v5_DavidForbes.py",
-      title: "SHA-256 hashing and hidden input",
-      summary: "Passwords are stored as SHA-256 digests (hashlib) and typed with hidden input (getpass). Blank entries are rejected without using an attempt.",
-      gaps: "SHA-256 without a salt is fast, so a leaked digest can be attacked offline.",
-      hints: [
-        ["alice", "Wonderland2024!"],
-        ["bob", "BuilderSafe!99"],
-        ["admin", "HSC_Software_Eng_2025!"],
-      ],
-    },
-    {
-      id: "vFINAL", tab: "🟣 vFINAL", program: "vFINAL", file: "login_vFINAL_DavidForbes.py",
-      title: "Brute-force protection and secure logging",
-      summary: "Three failures lock the system for 30 seconds. Passwords are compared with hmac.compare_digest, and every event is written to a timestamped audit log that never records passwords.",
-      gaps: "Known gaps: the lockout applies to the whole system, not one account, and a password typed into the username box is written to the log.",
-      hints: [
-        ["alice", "Wonderland2024!"],
-        ["bob", "BuilderSafe!99"],
-        ["admin", "HSC_Software_Eng_2025!"],
-        ["Try", "Three wrong passwords, then wait 30 seconds"],
-      ],
-      hasLog: true,
-    },
-  ];
+  const VERSIONS = window.LessonContent.VERSIONS;
 
   const els = {
     tabs: document.getElementById("tabs"),
@@ -80,6 +21,11 @@
     logCard: document.getElementById("log-card"),
     logList: document.getElementById("log-list"),
     clearLog: document.getElementById("clear-log"),
+    progress: document.getElementById("progress"),
+    concepts: document.getElementById("concepts"),
+    lab: document.getElementById("lab"),
+    quiz: document.getElementById("quiz"),
+    glossary: document.getElementById("glossary"),
   };
 
   // Kept for the life of the page, like a file on disk.
@@ -270,6 +216,13 @@
     renderInfo(version);
     els.logCard.hidden = !version.hasLog;
     renderLog();
+    window.Lessons.renderLesson(version, {
+      concepts: els.concepts,
+      lab: els.lab,
+      quiz: els.quiz,
+    }, function (done) {
+      window.Lessons.renderProgress(els.progress, done);
+    });
 
     const session = createSession(version, window.Versions.programs[version.program]);
     current = { id: id, cancel: session.cancel };
@@ -291,5 +244,8 @@
 
   renderTabs();
   renderLog();
+  window.Lessons.renderProgress(els.progress, window.Lessons.getDone());
+  els.glossary.textContent = "";
+  els.glossary.appendChild(window.Lessons.renderGlossary());
   startVersion("v1");
 })();

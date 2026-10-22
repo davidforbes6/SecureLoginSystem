@@ -122,14 +122,19 @@
     return username === "admin" && password === "Password123";
   }
 
-  function displayStatus(io, isAuthenticated, remainingAttempts) {
+  // Python: display_status. Returns the line it would print.
+  function statusMessage(isAuthenticated, remainingAttempts) {
     if (isAuthenticated) {
-      io.print("\n[+] Authentication Successful. Access Granted.");
-    } else if (remainingAttempts !== 0) {
-      io.print("[-] Authentication Failed. Remaining attempts: " + remainingAttempts);
-    } else {
-      io.print("[-] Critical: Maximum login attempts exceeded.");
+      return "\n[+] Authentication Successful. Access Granted.";
     }
+    if (remainingAttempts !== 0) {
+      return "[-] Authentication Failed. Remaining attempts: " + remainingAttempts;
+    }
+    return "[-] Critical: Maximum login attempts exceeded.";
+  }
+
+  function displayStatus(io, isAuthenticated, remainingAttempts) {
+    io.print(statusMessage(isAuthenticated, remainingAttempts));
   }
 
   async function v3(io) {
@@ -285,9 +290,24 @@
     io.print("\n[Session Active] Proceeding to application dashboard...");
   }
 
+  // Small pure functions that the lessons reuse. Each matches a Python function.
+  const helpers = {
+    // Python: get_non_empty_input (after the prompt). Returns the trimmed value or an error.
+    checkNonEmpty: function (value) {
+      const trimmed = value.trim();
+      if (trimmed === "") {
+        return { ok: false, message: "Validation Error: Field cannot be empty. Please try again." };
+      }
+      return { ok: true, value: trimmed };
+    },
+    validateCredentials: validateCredentials,
+    statusMessage: statusMessage,
+  };
+
   const api = {
     programs: { v1: v1, v2: v2, v3: v3, v4: v4, v5: v5, vFINAL: vfinal },
-    // Exposed for testing
+    helpers: helpers,
+    // Exposed for testing and the labs
     customHash: customHash,
     sanitiseUsername: sanitiseUsername,
     sha256Hex: sha256Hex,

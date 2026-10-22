@@ -120,6 +120,64 @@
     .hint-table td { padding: 4px 6px 4px 0; vertical-align: top; }
     .hint-table td:first-child { color: var(--muted); white-space: nowrap; padding-right: 10px; }
 
+
+    .progress-card { margin-bottom: 16px; }
+    .progress-text { margin: 0 0 8px; font-weight: 600; }
+    .progress-bar { height: 10px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .chip { font-size: 0.85em; border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; color: var(--muted); }
+    .chip-done { border-color: #2da44e; color: #2da44e; font-weight: 600; }
+    .step-heading { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; margin: 32px 0 12px; }
+    .step { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.95rem; flex: 0 0 auto; }
+    .lesson .card, .lesson-card { margin-top: 0; }
+    .muted.small, .small { font-size: 0.9em; }
+    .badge { display: inline-block; font-size: 0.8em; border: 1px solid var(--border); border-radius: 6px; padding: 0 6px; margin: 0 4px 4px 0; text-decoration: none; cursor: help; }
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 8px; }
+    .concept { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+    .concept h3 { font-size: 1rem; margin: 0 0 6px; }
+    .concept p { margin: 0 0 6px; }
+    .where { font-size: 0.85em; color: var(--muted); }
+    .where-label { font-weight: 600; }
+    .lab { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .lab-block { border-top: 1px solid var(--border); padding-top: 12px; margin-top: 14px; }
+    .lab-block:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+    .lab h4 { margin: 0 0 8px; font-size: 1rem; }
+    .lab-field { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; }
+    .lab-field span { font-size: 0.9em; color: var(--muted); }
+    .lab-field input, .lab-field select, .lab input[type="text"], .lab select {
+      font: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 8px 10px;
+      border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); width: 100%; max-width: 420px;
+    }
+    .lab-field input[type="range"] { max-width: 260px; padding: 0; }
+    .lab-check { display: inline-flex; gap: 6px; align-items: center; margin: 4px 16px 4px 0; }
+    .lab-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 8px 0; }
+    .lab-result { background: var(--bg); border: 1px dashed var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 10px; overflow-wrap: anywhere; }
+    .lab-result p { margin: 0 0 6px; }
+    .lab-table { width: 100%; border-collapse: collapse; font-size: 0.92em; margin: 8px 0; }
+    .lab-table th, .lab-table td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    .lab-table tr.current td { background: color-mix(in srgb, var(--accent) 16%, transparent); font-weight: 600; }
+    .digest { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; word-break: break-all; margin: 4px 0 10px; }
+    .chars span { display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1.1em; padding: 2px 4px; margin: 1px; border-radius: 4px; }
+    .chars .kept { background: color-mix(in srgb, #2da44e 22%, transparent); }
+    .chars .removed { background: color-mix(in srgb, #cf222e 22%, transparent); text-decoration: line-through; }
+    .ok { color: #1a7f37; font-weight: 600; }
+    .bad { color: #cf222e; font-weight: 600; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ok: #3fb950; } }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn:disabled { opacity: 0.6; cursor: wait; }
+    .quiz { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .quiz-q { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin: 10px 0; }
+    .quiz-q legend { font-weight: 600; padding: 0 4px; }
+    .quiz-option { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; cursor: pointer; }
+    .feedback { margin: 6px 0 0; min-height: 0; }
+    .feedback:empty { display: none; }
+    .score { font-weight: 600; margin: 10px 0 0; }
+    .glossary { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+    .glossary dt { font-weight: 600; }
+    .glossary dd { margin: 0; color: var(--muted); }
+    @media (max-width: 560px) { .glossary { grid-template-columns: 1fr; } .glossary dd { margin-bottom: 8px; } }
+
     footer { margin-top: 28px; color: var(--muted); font-size: 0.9em; }
     footer a { color: var(--accent); }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
@@ -128,8 +186,11 @@
 <body>
 <main>
   <h1>Secure Login System</h1>
-  <p class="subtitle">Six versions of a Python login system, each running live in your browser. Pick a version, then type at the prompt.</p>
+  <p class="subtitle">Six versions of a Python login system. For each one you can run it, learn the theory, experiment with a lab, and check yourself with a quiz.</p>
 
+  <section class="card progress-card" id="progress" aria-label="Your progress"></section>
+
+  <h2 class="step-heading"><span class="step">1</span> Run it</h2>
   <div class="tabs" role="tablist" aria-label="Versions" id="tabs"></div>
 
   <div class="layout">
@@ -163,6 +224,26 @@
     </section>
   </div>
 
+  <section class="lesson" aria-labelledby="h-theory">
+    <h2 class="step-heading" id="h-theory"><span class="step">2</span> Understand the theory</h2>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="lesson" aria-labelledby="h-lab">
+    <h2 class="step-heading" id="h-lab"><span class="step">3</span> Experiment in the lab</h2>
+    <div id="lab"></div>
+  </section>
+
+  <section class="lesson" aria-labelledby="h-quiz">
+    <h2 class="step-heading" id="h-quiz"><span class="step">4</span> Check yourself</h2>
+    <div id="quiz"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-glossary">
+    <h2 id="h-glossary">Glossary</h2>
+    <div id="glossary"></div>
+  </section>
+
   <footer>
     <p>The page runs a browser version of each Python program in <code>src/</code>. The messages, rules and order of steps match the Python files, and the output was checked against them. The Python files are the source of truth.</p>
     <p>Source code and tests: <a href="https://github.com/davidforbes6/SecureLoginSystem">github.com/davidforbes6/SecureLoginSystem</a>. Process diary: <a href="https://github.com/davidforbes6/SecureLoginSystem/blob/main/docs/PROCESS_DIARY.md">docs/PROCESS_DIARY.md</a>.</p>
@@ -170,6 +251,9 @@
 </main>
 
 <script src="assets/versions.js"></script>
+<script src="assets/labs.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/lessons.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
